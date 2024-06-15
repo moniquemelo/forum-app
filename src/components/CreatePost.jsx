@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
-import './CreatePost.css'; 
+import  { useState } from 'react';
+import './CreatePost.css';
 
-export default function CreatePost() {
+export default function CreatePost({ onCreatePost }) { // Sempre que eu usar este componente em outro lugar, ele vai pedir o onCreatePost
   const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+  const [introduction, setintroduction] = useState('');
 
-  const handleSubmit = async (e) => {
+  async function handleSubmit(e) {
     e.preventDefault();
-    console.log({ title, content });
-  };
+    onCreatePost(title, introduction);
+    setTitle('');
+    setintroduction('');
+  }
 
   return (
     <form className="form-create-post" onSubmit={handleSubmit}>
@@ -19,12 +21,11 @@ export default function CreatePost() {
         placeholder="Título"
       />
       <textarea
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
+        value={introduction}
+        onChange={(e) => setintroduction(e.target.value)}
         placeholder="O que você gostaria de perguntar ou compartilhar?"
       />
       <button type="submit">Criar Post</button>
     </form>
   );
 }
-
