@@ -1,0 +1,42 @@
+.ranking-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+  background-color: var(--container-div);
+  border-radius: 10px;
+}
+
+.ranking-title {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.ranking-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.ranking-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+  margin-bottom: 10px;
+  background-color: var(--white);
+  border-radius: 5px;
+}
+
+.ranking-item:nth-child(odd) {
+  background-color: var(--border-div);
+}
+
+.ranking-name {
+  flex-grow: 1;
+  text-align: left;
+  padding-left: 20px;
+}
+
+.ranking-score {
+  font-weight: bold;
+  color: var(--ranking-point);
+}
