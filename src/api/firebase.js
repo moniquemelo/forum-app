@@ -1,8 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+import { getAuth } from 'firebase/auth';
 
-
-// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyDcuWjxgQEgu-fnTpc3EQBMfw3J7ftozc4",
   authDomain: "forum-app-71ca9.firebaseapp.com",
@@ -12,10 +11,9 @@ const firebaseConfig = {
   appId: "1:73506448363:web:569619763456064f112fae"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-
 const db = getFirestore(app);
+const auth = getAuth(app);
 
 
-export { db }; // Estou exportando um objeto
+export { db, auth };

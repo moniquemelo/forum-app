@@ -1,21 +1,37 @@
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --black: black;
+  --white: #ffffff;
+  --grey: grey;
+  --yellow: yellow;
+
+  --button-primary: #055ab4;
+  --border-div: #ccc;
+  --container-div: #f9f9f9;
+  --button-font-color: #fff;
+  --button-primary-hover:  #0056b3;
+  --errors:  #bb2d2d;
+
+  --navbar-background: #d1682b;
+  --navbar-item-hover: #ddd;
+
+  --post-list-background:#0e0b0bd0;
+  --ranking-point: #2a9d8f
+
+
 }
 
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
   font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
   background-color: #f7f7f7;
 }
+
 
 .App {
   max-width: 700px;
@@ -24,4 +40,5 @@ body {
   background: white;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
+  margin: 80px auto 20px auto; /* Adjusted margin to account for the fixed navbar */
 }
