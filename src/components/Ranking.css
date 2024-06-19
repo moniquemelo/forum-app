@@ -5,6 +5,7 @@
   background-color: var(--container-div);
   border-radius: 10px;
   overflow: hidden; 
+}
 
 .ranking-title {
   font-size: 2em;
