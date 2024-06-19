@@ -1,3 +1,7 @@
+.post-list-container {
+  padding-top: var(--navbar-height);
+}
+
 .post-list {
   margin-top: 20px;
 }

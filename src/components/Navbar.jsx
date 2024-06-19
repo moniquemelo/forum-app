@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import Logout from './Logout';
@@ -5,10 +6,20 @@ import './Navbar.css';
 
 export default function Navbar() {
   const { currentUser } = useAuth();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
 
   return (
     <nav className="navbar">
-      <ul className="navbar-list">
+      <button 
+        className={`navbar-toggle ${isMenuOpen ? 'hidden' : 'hidden'}`} 
+        onClick={toggleMenu}>
+        &#9776;
+      </button>
+      <ul className={`navbar-list ${isMenuOpen ? 'hidden' : ''}`}>
         <li className="navbar-item">
           <Link to="/" className="navbar-link">Home</Link>
         </li>
@@ -34,5 +45,3 @@ export default function Navbar() {
     </nav>
   );
 }
-
-

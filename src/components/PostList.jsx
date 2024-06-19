@@ -3,6 +3,7 @@ import axios from 'axios';
 import { db } from '../api/firebase';
 import { collection, getDocs, getDoc, addDoc, updateDoc, doc, setDoc } from 'firebase/firestore';
 import { useAuth } from '../contexts/AuthContext';
+import CreatePost from '../components/CreatePost';
 import './PostList.css';
 
 export default function PostList() {
@@ -10,7 +11,6 @@ export default function PostList() {
   const [posts, setPosts] = useState([]);
   const [showLoginMessage, setShowLoginMessage] = useState(false);
 
-  // Preciso que ele olhe a situação do login do usuário, mas não sei se fazer dessa forma é a melhor.
   useEffect(() => {
     if (currentUser) {
       addUserToDataBase(currentUser);
@@ -18,8 +18,6 @@ export default function PostList() {
     getPosts();
   }, [currentUser]);
 
-  // Adicionando um usuário no database e inicializando ele com a pontuação zero. Preciso verificar depois se será necessário fazer dessa forma ou se
-  // o ideal é adicionar uma subcoleção dentro dos documentos da colecao posts.
   async function addUserToDataBase(user) {
     const userRef = doc(db, "users", user.uid);
     const userSnapshot = await getDoc(userRef);
@@ -45,17 +43,16 @@ export default function PostList() {
         ...doc.data()
       }));
 
-      // Pequena verificação sobre o usuário estar logado ou não. Revisar no final do projeto para otimizar esse trecho de código.
       if (!currentUser) {
         setShowLoginMessage(true);
       } else {
         setShowLoginMessage(false);
       }
 
-      for (const noticia of noticias) {
-        const existingPost = postsData.find(post => post.titulo === noticia.titulo); // Validando a existencia do post pelo titulo. É o ideal?
+      const existingTitles = postsData.map(post => post.titulo);
 
-        if (!existingPost) {
+      for (const noticia of noticias) {
+        if (!existingTitles.includes(noticia.titulo)) {
           const docRef = await addDoc(postsCollection, {
             titulo: noticia.titulo,
             introducao: noticia.introducao,
@@ -111,11 +108,6 @@ export default function PostList() {
   async function handleCommentSubmit(e, postId) {
     e.preventDefault();
 
-    // if (!currentUser) {
-    //   setShowLoginMessage(true);
-    //   return;
-    // }
-
     try {
       const commentText = e.target.commentText.value;
 
@@ -136,7 +128,6 @@ export default function PostList() {
 
       e.target.commentText.value = '';
 
-      
       const newPosts = posts.map(post =>
         post.id === postId ? { ...post, comentario: newComments } : post
       );
@@ -198,7 +189,7 @@ export default function PostList() {
           <p>Você precisa estar logado para interagir com os posts e ganhar badges exclusivos como premiação pelo seu engajamento</p>
         </div>
       )}
-      {/* <CreatePost onCreatePost={handleCreatePost} /> */}
+      {currentUser && <CreatePost onCreatePost={handleCreatePost} />}
       <div className="post-list">
         {posts.map(post => (
           <div key={post.id} className="post-item">
@@ -231,4 +222,3 @@ export default function PostList() {
     </div>
   );
 }
-

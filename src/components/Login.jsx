@@ -3,24 +3,19 @@ import { auth } from '../api/firebase'
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import './Login.css'; 
 
+export async function handleLogin(e, email, password) {
+  e.preventDefault();
+  await signInWithEmailAndPassword(auth, email, password);
+}
+
 export default function Login () {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-    } catch (error) {
-      setError(error.message);
-    }
-  };
 
   return (
     <div className="login-container"> 
       <h2>Login</h2>
-      <form onSubmit={handleLogin}>
+      <form onSubmit={(e) => handleLogin(e, email, password)}> 
         <input
           type="email"
           value={email}
@@ -37,7 +32,6 @@ export default function Login () {
         />
         <button type="submit" className="login-button">Login</button> 
       </form>
-      {error && <p className="error-message">{error}</p>} 
     </div>
   );
 }
